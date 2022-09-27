@@ -16,6 +16,12 @@ const Options = [
     icon: <Icon name="image" size={26} />,
     actionType: 'Open Gallery',
   },
+
+  {
+    title: 'Choose Video from Gallery',
+    icon: <Icon name="image" size={26} />,
+    actionType: 'Open Video',
+  },
 ];
 
 const ImageBottomSheet = React.forwardRef(
@@ -23,6 +29,7 @@ const ImageBottomSheet = React.forwardRef(
     const snapPoints = ['1%', '27%'];
 
     const handleActionType = actionType => {
+      console.log(actionType);
       handleClosePress();
       if (actionType === 'Open Camera') {
         ImagePicker.openPicker({
@@ -46,6 +53,16 @@ const ImageBottomSheet = React.forwardRef(
         })
           .then(image => {
             onSelectImage(`data:${image?.mime};base64,${image?.data}`);
+          })
+          .catch(e => console.warn(e?.message));
+      }
+
+      if (actionType === 'Open Video') {
+        ImagePicker.openPicker({
+          mediaType: 'video',
+        })
+          .then(video => {
+            onSelectImage(video);
           })
           .catch(e => console.warn(e?.message));
       }

@@ -3,19 +3,11 @@ import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../components/Header';
 import Container from '../../components/Container';
-import {Scroller} from '../../components/Scroller';
-import {COLORS, FONTS, SIZES} from '../../constants/theme';
-import {HorizontalSpacing} from '../../components/styleComponents/HorizontalSpacing.js';
 import {VerticalSpacing} from '../../components/styleComponents/VerticalSpacing';
-import {
-  RecentWorksContentsWrapper,
-  ImageCardStyle,
-  ImageStyle,
-  ButtonWrapper,
-  ImageStyle2,
-} from './RecentWorksContentsWrapper';
+import {ImageCardStyle, ImageStyle2} from './RecentWorksContentsWrapper';
 
 import icons from '../../constants/icons';
+import RatingStar from '../../components/Ratings/RatingStar';
 
 const MyWorks = props => (
   <ImageCardStyle activeOpacity={1} width="62%" height="140px" padding="0%">
@@ -40,20 +32,19 @@ const RecentWorkImageDetail = () => {
     <>
       <Container style={{marginHorizontal: 8}}>
         <Header isNotHome screenName="My Recent Works" />
-
         <VerticalSpacing extraPadding="5%" />
-
         <ImageCardStyle height="70%" width="100%" padding="0%" disabled>
           <ImageStyle2 source={icons.FashionItem4} />
         </ImageCardStyle>
-
         <VerticalSpacing extraPadding="2%" />
-
-        <FlatList
+        {/* <FlatList
+          horizontal
           data={uplaodedImages}
           keyExtractor={(item, index) => index.toString()}
           renderItem={item => <MyWorks source={item.item} />}
-        />
+        /> */}
+        
+        <RatingStar defaultRating={2} />
       </Container>
     </>
   );

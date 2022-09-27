@@ -1,4 +1,4 @@
-import {FlatList, Image, Modal, Text, View} from 'react-native';
+import {Alert, FlatList, Image, Modal, Text, View} from 'react-native';
 import React, {useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../components/Header';
@@ -13,32 +13,28 @@ import {
   ImageStyle,
   ButtonWrapper,
   VideoWrapper,
+  ImageStyle2,
 } from './RecentWorksContentsWrapper';
 import {UploadHolder} from '../../components/uplaodHolder/UploadHolder';
 import {TextInputArea} from '../../components/TextInput/TextInputArea';
 import CustomButton from '../../components/CustomButton';
 import icons from '../../constants/icons';
 import ImageBottomSheet from '../../components/CameraBottomSheet';
+import VideoPlayer from 'react-native-video-player';
+import {useEffect} from 'react';
 
 const MyWorks = props => (
   <ImageCardStyle activeOpacity={1} onPress={props.onPress}>
-    <ImageStyle source={props.source} />
+    <ImageStyle2 source={props.source} resizeMode="cover" />
     <VerticalSpacing />
   </ImageCardStyle>
 );
 
 const RecentWorks = () => {
   const {goBack, navigate} = useNavigation();
-  const [uplaodedImages, setUploadedImage] = useState([
-    icons.FashionItem4,
-    icons.FashionItem1,
-    icons.FashionItem2,
-    icons.FashionItem3,
-  ]);
-
   const bottomSheetRef = useRef(null);
-
-  const [uplaodedVideo, setUplaodedVideo] = useState([icons.FashionItem3]);
+  const [uplaodedImages, setUploadedImage] = useState([]);
+  const [uplaodedVideo, setUplaodedVideo] = useState([]);
 
   const [text, setText] = useState('');
   const [type, setType] = useState('');
@@ -46,21 +42,41 @@ const RecentWorks = () => {
   const handleClosePress = () => bottomSheetRef.current.close();
 
   const onOpenModal = type => {
-    setType(type);
-    bottomSheetRef?.current?.snapToIndex(1);
+    if (uplaodedImages.length === 4 && type === 'picture') {
+      Alert.alert('Sorry!', 'You can upload more than 4 Images');
+    } else {
+      setType(type);
+      bottomSheetRef?.current?.snapToIndex(1);
+    }
   };
 
   /* handle user file uploading  */
-  const handleFileUpload = (type, imageUrl) => {
+  const handleFileUpload = imageUrl => {
+    console.log(type);
     if (
       imageUrl !== null &&
       typeof imageUrl !== 'undefined' &&
       type !== null &&
-      typeof type !== 'undefined'
+      typeof type !== 'undefined' &&
+      type === 'picture'
     ) {
-      console.log(type, imageUrl);
+      setUploadedImage(uplaodedImages => [...uplaodedImages, imageUrl]);
+    }
+
+    if (
+      imageUrl !== null &&
+      typeof imageUrl !== 'undefined' &&
+      type !== null &&
+      typeof type !== 'undefined' &&
+      type === 'video'
+    ) {
+      setUplaodedVideo(uplaodedVideo => [...uplaodedVideo, imageUrl]);
     }
   };
+
+  useEffect(() => {
+    console.log(uplaodedVideo[0]?.filename);
+  }, [uplaodedVideo]);
 
   return (
     <>
@@ -77,7 +93,7 @@ const RecentWorks = () => {
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={item => (
                   <MyWorks
-                    source={item.item}
+                    source={{uri: item.item}}
                     onPress={() => navigate('RecentWork_imageDetail_Screen')}
                   />
                 )}
@@ -109,13 +125,24 @@ const RecentWorks = () => {
               </ButtonWrapper>
 
               <VerticalSpacing />
-
-              {uplaodedVideo.length !== 0 && (
-                <RecentWorksContentsWrapper contentMarginSize={'1%'}>
-                  <VideoWrapper />
-                </RecentWorksContentsWrapper>
-              )}
             </>
+          )}
+
+          {uplaodedVideo.length !== 0 && (
+            <RecentWorksContentsWrapper contentMarginSize={'1%'}>
+              <VideoWrapper>
+                {/* <VideoPlayer
+                  video={{
+                    source: uplaodedVideo[0]?.filename,
+                  }}
+                  videoWidth={1600}
+                  videoHeight={1000}
+                  // thumbnail={{
+                  //   uri: uplaodedVideo[1],
+                  // }}
+                /> */}
+              </VideoWrapper>
+            </RecentWorksContentsWrapper>
           )}
 
           <HorizontalSpacing>
@@ -136,14 +163,14 @@ const RecentWorks = () => {
             <UploadHolder
               source={icons.EmptyImage2}
               isImage
-              onPress={() => onOpenModal('cover')}
+              onPress={() => onOpenModal('picture')}
             />
 
             {/* This is for video upload */}
             <VerticalSpacing extraPadding="8%" />
             <UploadHolder
               source={icons.EmptyVideo}
-              onPress={() => alert('i was clicked')}
+              onPress={() => onOpenModal('video')}
             />
 
             {/* This is for textarea*/}
@@ -173,7 +200,7 @@ const RecentWorks = () => {
       <ImageBottomSheet
         ref={bottomSheetRef}
         handleClosePress={handleClosePress}
-        onSelectImage={handleFileUpload}
+        onSelectImage={data => handleFileUpload(data)}
         type={type}
         onCoverPhotoSelect={data => console.log('coverPhoto', data)}
       />

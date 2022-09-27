@@ -5,14 +5,15 @@ export const RecentWorksContentsWrapper = styled.View`
 `;
 
 export const ImageCardStyle = styled.TouchableOpacity`
-  height: ${props => (props.height ? props.height : '100px')};
+  height: ${props => (props.height ? props.height : '110px')};
   width: ${props => (props.width ? props.width : '50%')};
-  padding-horizontal: ${props => (props.padding ? props.padding : '10px')};
+  padding-horizontal: ${props => (props.padding ? props.padding : '3.5px')};
+  padding-vertical: ${props => (props.padding ? props.padding : '4px')};
   align-items: center;
 `;
 
 export const ImageStyle = styled.Image`
-  height:95%
+  height:100%
   width:95%;
 `;
 
@@ -28,7 +29,5 @@ export const ButtonWrapper = styled.View`
 
 export const VideoWrapper = styled.View`
   height: 250px;
-  width: 100%
-  background-color: black
-  
+  width: 100%;
 `;

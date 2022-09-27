@@ -35,6 +35,9 @@ const AutoMakers = require('../assets/images/autoMakers.png');
 const Cynclair = require('../assets/images/cynclair.png');
 const EmptyVideo = require('../assets/images/emptyVideo.png');
 const EmptyImage2 = require('../assets/images/emptyImage2.png');
+const Checked = require('../assets/images/checked.png');
+const BlackWallet = require('../assets/images/walletBlack.png');
+const Card = require('../assets/images/card.png');
 
 export default {
   NewServiceImage,
@@ -74,4 +77,7 @@ export default {
   Cynclair,
   EmptyVideo,
   EmptyImage2,
+  Checked,
+  BlackWallet,
+  Card,
 };
