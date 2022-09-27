@@ -20,7 +20,6 @@ import CustomButton from '../../components/CustomButton';
 import icons from '../../constants/icons';
 import ImageBottomSheet from '../../components/CameraBottomSheet';
 import VideoPlayer from 'react-native-video-player';
-import {useEffect} from 'react';
 
 const MyWorks = props => (
   <ImageCardStyle activeOpacity={1} onPress={props.onPress}>
