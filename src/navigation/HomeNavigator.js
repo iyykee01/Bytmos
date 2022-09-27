@@ -30,7 +30,7 @@ export const HomeNavigator = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name={HOME_SCREEN} component={BottomTabs} />
+      {/* <Stack.Screen name={HOME_SCREEN} component={BottomTabs} />
       <Stack.Screen name={ACCOUNT_SCREEN} component={AccountScreen} />
 
       <Stack.Screen name={SERVICE_SCREEN} component={MyServices} />
@@ -40,8 +40,8 @@ export const HomeNavigator = () => {
       <Stack.Screen
         name={PackageSubscription}
         component={PackageSubscriptionScreen}
-      />
-      {/* <Stack.Screen name={RECENT_WORKS_SCREEN} component={RecentWorks} /> */}
+      /> */}
+      <Stack.Screen name={RECENT_WORKS_SCREEN} component={RecentWorks} />
       <Stack.Screen
         name={RECENT_WORKS_IMAGEDETAIL_SCREEN}
         component={RecentWorkImageDetail}

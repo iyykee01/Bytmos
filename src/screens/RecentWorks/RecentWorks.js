@@ -1,4 +1,4 @@
-import {Alert, FlatList, Image, Modal, Text, View} from 'react-native';
+import {Alert, FlatList, Text} from 'react-native';
 import React, {useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../components/Header';
@@ -10,7 +10,6 @@ import {VerticalSpacing} from '../../components/styleComponents/VerticalSpacing'
 import {
   RecentWorksContentsWrapper,
   ImageCardStyle,
-  ImageStyle,
   ButtonWrapper,
   VideoWrapper,
   ImageStyle2,
@@ -63,20 +62,23 @@ const RecentWorks = () => {
       setUploadedImage(uplaodedImages => [...uplaodedImages, imageUrl]);
     }
 
-    if (
-      imageUrl !== null &&
-      typeof imageUrl !== 'undefined' &&
-      type !== null &&
-      typeof type !== 'undefined' &&
-      type === 'video'
-    ) {
-      setUplaodedVideo(uplaodedVideo => [...uplaodedVideo, imageUrl]);
-    }
+    // if (
+    //   imageUrl !== null &&
+    //   typeof imageUrl !== 'undefined' &&
+    //   type !== null &&
+    //   typeof type !== 'undefined' &&
+    //   type === 'video'
+    // ) {
+    //   setUplaodedVideo(uplaodedVideo => [...uplaodedVideo, imageUrl]);
+    // }
   };
 
-  useEffect(() => {
-    console.log(uplaodedVideo[0]?.filename);
-  }, [uplaodedVideo]);
+  const selectedImageHandler = item => {
+    navigate('RecentWork_imageDetail_Screen', {
+      imageArray: uplaodedImages,
+      selectedImage: item,
+    });
+  };
 
   return (
     <>
@@ -94,7 +96,7 @@ const RecentWorks = () => {
                 renderItem={item => (
                   <MyWorks
                     source={{uri: item.item}}
-                    onPress={() => navigate('RecentWork_imageDetail_Screen')}
+                    onPress={() => selectedImageHandler(item.item)}
                   />
                 )}
               />

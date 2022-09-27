@@ -16,12 +16,6 @@ const Options = [
     icon: <Icon name="image" size={26} />,
     actionType: 'Open Gallery',
   },
-
-  {
-    title: 'Choose Video from Gallery',
-    icon: <Icon name="image" size={26} />,
-    actionType: 'Open Video',
-  },
 ];
 
 const ImageBottomSheet = React.forwardRef(
@@ -57,15 +51,15 @@ const ImageBottomSheet = React.forwardRef(
           .catch(e => console.warn(e?.message));
       }
 
-      if (actionType === 'Open Video') {
-        ImagePicker.openPicker({
-          mediaType: 'video',
-        })
-          .then(video => {
-            onSelectImage(video);
-          })
-          .catch(e => console.warn(e?.message));
-      }
+      // if (actionType === 'Open Video') {
+      //   ImagePicker.openPicker({
+      //     mediaType: 'video',
+      //   })
+      //     .then(video => {
+      //       onSelectImage(video);
+      //     })
+      //     .catch(e => console.warn(e?.message));
+      // }
     };
 
     const renderBackdrop = useCallback(
