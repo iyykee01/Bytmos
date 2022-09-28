@@ -73,10 +73,13 @@ const RecentWorks = () => {
   };
 
   const selectedImageHandler = item => {
-    navigate('RecentWork_imageDetail_Screen', {
-      imageArray: uplaodedImages,
-      selectedImage: item,
-    });
+    //Shit selected item current's position to first element in the array
+    const index = uplaodedImages.indexOf(item);
+
+    uplaodedImages.unshift(uplaodedImages.splice(index, 1)[0]);
+    setUploadedImage(uplaodedImages => [...uplaodedImages]);
+
+    navigate('RecentWork_imageDetail_Screen', uplaodedImages);
   };
 
   return (
@@ -122,9 +125,9 @@ const RecentWorks = () => {
                   }}
                   textStyle={FONTS.h9}
                   color={COLORS.white}
+                  onPress={() => setUploadedImage([])}
                 />
               </ButtonWrapper>
-
               <VerticalSpacing />
             </>
           )}
@@ -143,6 +146,26 @@ const RecentWorks = () => {
                   // }}
                 /> */}
               </VideoWrapper>
+              <VerticalSpacing />
+
+              <ButtonWrapper
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                }}>
+                <CustomButton
+                  title="Delete"
+                  style={{
+                    height: SIZES.font1 * 1,
+                    borderRadius: 8,
+                    width: 80,
+                    backgroundColor: COLORS.separator,
+                  }}
+                  textStyle={FONTS.h9}
+                  color={COLORS.white}
+                  onPress={() => setUplaodedVideo([])}
+                />
+              </ButtonWrapper>
             </RecentWorksContentsWrapper>
           )}
 
