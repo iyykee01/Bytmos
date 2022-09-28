@@ -1,22 +1,24 @@
-import {FlatList} from 'react-native';
+import {FlatList, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../components/Header';
 import Container from '../../components/Container';
 import {VerticalSpacing} from '../../components/styleComponents/VerticalSpacing';
 import {ImageCardStyle, ImageStyle2} from './RecentWorksContentsWrapper';
+import {FlatGrid} from 'react-native-super-grid';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const MyWorks = props => (
-  <ImageCardStyle activeOpacity={1} width="62%" height="140px" padding="0%">
+  <ImageCardStyle activeOpacity={1} width="100%" height="140px" padding="0%">
     <ImageStyle2 source={props.source} width="100%" resizeMode="cover" />
   </ImageCardStyle>
 );
 
 const RecentWorkImageDetail = ({route}) => {
   const {goBack} = useNavigation();
-  const {params} = route;
+  const {index, uplaodedImages} = route.params;
   const [selectedImg, setSelectedImg] = useState();
-  const [uplaodedImages, setUploadedImage] = useState([]);
+  const [imagesParams, setImagesParams] = useState([]);
 
   /**
    * This method will:-
@@ -26,9 +28,8 @@ const RecentWorkImageDetail = ({route}) => {
    * and add image back to array
    */
   const imageHandler = () => {
-    const selected = params.shift();
-    setSelectedImg(selected);
-    setUploadedImage([...params]);
+    setSelectedImg(uplaodedImages[index]);
+    setImagesParams(uplaodedImages);
   };
 
   useEffect(() => {
@@ -43,16 +44,20 @@ const RecentWorkImageDetail = ({route}) => {
         <ImageCardStyle height="70%" width="100%" padding="0%" disabled>
           <ImageStyle2 source={{uri: selectedImg}} />
         </ImageCardStyle>
-        <VerticalSpacing extraPadding="2%" />
+        <VerticalSpacing extraPadding="0%" />
 
-        <FlatList
+        <FlatGrid
+          horizontal
+          itemDimension={130}
           data={uplaodedImages}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={item => (
-            <MyWorks
-              source={{uri: item.item}}
-              onPress={() => selectedImageHandler(item.item)}
-            />
+          renderItem={({item}) => (
+            <>
+              <TouchableOpacity
+                style={{width: 250, height: 130, padding: 0}}
+                onPress={() => setSelectedImg(item)}>
+                <MyWorks source={{uri: item}} />
+              </TouchableOpacity>
+            </>
           )}
         />
       </Container>
