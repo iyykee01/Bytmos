@@ -60,25 +60,11 @@ const RecentWorks = () => {
     ) {
       setUploadedImage(uplaodedImages => [...uplaodedImages, imageUrl]);
     }
-
-    // if (
-    //   imageUrl !== null &&
-    //   typeof imageUrl !== 'undefined' &&
-    //   type !== null &&
-    //   typeof type !== 'undefined' &&
-    //   type === 'video'
-    // ) {
-    //   setUplaodedVideo(uplaodedVideo => [...uplaodedVideo, imageUrl]);
-    // }
   };
 
+  // Handles selected image
   const selectedImageHandler = item => {
-    //Shit selected item current's position to first element in the array
     const index = uplaodedImages.indexOf(item);
-
-    // uplaodedImages.unshift(uplaodedImages.splice(index, 1)[0]);
-    // setUploadedImage(uplaodedImages => [...uplaodedImages]);
-
     navigate('RecentWork_imageDetail_Screen', {uplaodedImages, index});
   };
 
@@ -132,10 +118,10 @@ const RecentWorks = () => {
             </>
           )}
 
-          {uplaodedVideo.length !== 0 && (
+          {/* {uplaodedVideo.length !== 0 && (
             <RecentWorksContentsWrapper contentMarginSize={'1%'}>
-              <VideoWrapper>
-                {/* <VideoPlayer
+              <VideoWrapper> */}
+          {/* <VideoPlayer
                   video={{
                     source: uplaodedVideo[0]?.filename,
                   }}
@@ -145,7 +131,7 @@ const RecentWorks = () => {
                   //   uri: uplaodedVideo[1],
                   // }}
                 /> */}
-              </VideoWrapper>
+          {/* </VideoWrapper>
               <VerticalSpacing />
 
               <ButtonWrapper
@@ -167,7 +153,7 @@ const RecentWorks = () => {
                 />
               </ButtonWrapper>
             </RecentWorksContentsWrapper>
-          )}
+          )} */}
 
           <HorizontalSpacing>
             {/* This is for the header Text */}
@@ -191,11 +177,11 @@ const RecentWorks = () => {
             />
 
             {/* This is for video upload */}
-            <VerticalSpacing extraPadding="8%" />
+            {/* <VerticalSpacing extraPadding="8%" />
             <UploadHolder
               source={icons.EmptyVideo}
               onPress={() => onOpenModal('video')}
-            />
+            /> */}
 
             {/* This is for textarea*/}
             <VerticalSpacing extraPadding="15%" />
