@@ -76,10 +76,10 @@ const RecentWorks = () => {
     //Shit selected item current's position to first element in the array
     const index = uplaodedImages.indexOf(item);
 
-    uplaodedImages.unshift(uplaodedImages.splice(index, 1)[0]);
-    setUploadedImage(uplaodedImages => [...uplaodedImages]);
+    // uplaodedImages.unshift(uplaodedImages.splice(index, 1)[0]);
+    // setUploadedImage(uplaodedImages => [...uplaodedImages]);
 
-    navigate('RecentWork_imageDetail_Screen', uplaodedImages);
+    navigate('RecentWork_imageDetail_Screen', {uplaodedImages, index});
   };
 
   return (
